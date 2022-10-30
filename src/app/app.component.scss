@@ -32,3 +32,22 @@ mat-card, footer {
 footer {
   text-align: center;
 }
+
+.row {
+  display: flex;
+  .col-6 {
+    border: 1px solid whitesmoke;
+    width: 48%;
+    margin: 1%;
+  }
+}
+
+@media screen and (max-width:900px) {
+  .row {
+    display: block;
+  }
+  .col-6 {
+    margin-left: 1%;
+    width: 98% !important;
+  }
+}

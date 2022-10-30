@@ -31,7 +31,18 @@ export class AppComponent implements OnInit {
   votosNulo = null;
   votosNuloPorcentagem = null;
 
-  constructor(public crud: CrudService) {}
+  // Governador
+  GovernadorDados = null;
+  GovernadorPorcentagemTotal = null;
+  GovernadorHoraAtualizacao = null;
+  GovernadorVotosValidos = null;
+  GovernadorVotosValidosPorcentagem = null;
+  GovernadorVotosBranco = null;
+  GovernadorVotosBrancoPorcentagem = null;
+  GovernadorVotosNulo = null;
+  GovernadorVotosNuloPorcentagem = null;
+
+  constructor(public crud: CrudService) { }
 
   ngOnInit() {
     this.loadAll();
@@ -44,43 +55,47 @@ export class AppComponent implements OnInit {
 
   loadPresidente() {
     this.crud.getPresidente()
-    .subscribe((data: any) => {
-      console.log('getPresidente', data);
-      
-      this.dadosPresidente = data?.cand;
-      this.porcentagemTotal = data?.pst;
-      this.horaAtualizacao = data?.ht;
-
-      this.votosValidos = data?.vv
-      this.votosValidosPorcentagem = data?.pvvc
-
-      this.votosBranco = data?.vb;
-      this.votosBrancoPorcentagem = data?.pvb;
-
-      this.votosNulo = data?.vn;
-      this.votosNuloPorcentagem = data?.ptvn;
-
-    });
+      .subscribe((data: any) => {
+        console.log('getPresidente', data);
+        this.setPresidente(data);
+      });
   }
 
   loadGovernador() {
     this.crud.getGovernador()
-    .subscribe((data: any) => {
-      console.log('getGovernador', data);
-      
-      // this.dadosPresidente = data?.cand;
-      // this.porcentagemTotal = data?.pst;
-      // this.horaAtualizacao = data?.ht;
+      .subscribe((data: any) => {
+        console.log('getGovernador', data);
+        this.setGovernador(data);
+      });
+  }
 
-      // this.votosValidos = data?.vv
-      // this.votosValidosPorcentagem = data?.pvvc
+  setPresidente(data: any) {
+    this.dadosPresidente = data?.cand;
+    this.porcentagemTotal = data?.pst as any;
+    this.horaAtualizacao = data?.ht as any;
 
-      // this.votosBranco = data?.vb;
-      // this.votosBrancoPorcentagem = data?.pvb;
+    this.votosValidos = data?.vv as any;
+    this.votosValidosPorcentagem = data?.pvvc as any;
 
-      // this.votosNulo = data?.vn;
-      // this.votosNuloPorcentagem = data?.ptvn;
+    this.votosBranco = data?.vb as any;
+    this.votosBrancoPorcentagem = data?.pvb as any;
 
-    });
+    this.votosNulo = data?.vn as any;
+    this.votosNuloPorcentagem = data?.ptvn as any;
+  }
+
+  setGovernador(data: any) {
+    this.dadosGovernador = data?.cand;
+    this.GovernadorPorcentagemTotal = data?.pst as any;
+    this.GovernadorHoraAtualizacao = data?.ht as any;
+
+    this.GovernadorVotosValidos = data?.vv as any;
+    this.GovernadorVotosValidosPorcentagem = data?.pvvc as any;
+
+    this.GovernadorVotosBranco = data?.vb as any;
+    this.GovernadorVotosBrancoPorcentagem = data?.pvb as any;
+
+    this.GovernadorVotosNulo = data?.vn as any;
+    this.GovernadorVotosNuloPorcentagem = data?.ptvn as any;
   }
 }
