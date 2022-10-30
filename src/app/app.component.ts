@@ -18,7 +18,8 @@ const TABELA_DADOS: TabelaElementos[] = [];
 export class AppComponent implements OnInit {
   title = 'eleicoes-2022';
   TabelaColunas: string[] = ['nome', 'numero', 'porcentagem', 'votos'];
-  dataSource = TABELA_DADOS;
+  dadosPresidente = TABELA_DADOS;
+  dadosGovernador = TABELA_DADOS;
 
   porcentagemTotal = null;
   horaAtualizacao = null;
@@ -33,13 +34,20 @@ export class AppComponent implements OnInit {
   constructor(public crud: CrudService) {}
 
   ngOnInit() {
-    this.loadData();
+    this.loadAll();
   }
 
-  loadData() {
-    this.crud.getData()
+  loadAll() {
+    this.loadPresidente();
+    this.loadGovernador();
+  }
+
+  loadPresidente() {
+    this.crud.getPresidente()
     .subscribe((data: any) => {
-      this.dataSource = data?.cand;
+      console.log('getPresidente', data);
+      
+      this.dadosPresidente = data?.cand;
       this.porcentagemTotal = data?.pst;
       this.horaAtualizacao = data?.ht;
 
@@ -51,6 +59,27 @@ export class AppComponent implements OnInit {
 
       this.votosNulo = data?.vn;
       this.votosNuloPorcentagem = data?.ptvn;
+
+    });
+  }
+
+  loadGovernador() {
+    this.crud.getGovernador()
+    .subscribe((data: any) => {
+      console.log('getGovernador', data);
+      
+      // this.dadosPresidente = data?.cand;
+      // this.porcentagemTotal = data?.pst;
+      // this.horaAtualizacao = data?.ht;
+
+      // this.votosValidos = data?.vv
+      // this.votosValidosPorcentagem = data?.pvvc
+
+      // this.votosBranco = data?.vb;
+      // this.votosBrancoPorcentagem = data?.pvb;
+
+      // this.votosNulo = data?.vn;
+      // this.votosNuloPorcentagem = data?.ptvn;
 
     });
   }
